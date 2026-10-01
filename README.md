@@ -89,7 +89,9 @@ Agent 第一动作会输出复选栏，你回复编号或"全选"后，开始生
 
 ```
 gaokao-writing-evaluator/
-├── SKILL.md                                # 技能主文件
+├── SKILL.md                                # 技能主文件（Agent Skill 版）
+├── PROMPT.md                               # 纯对话版提示词，可直接粘贴使用
+├── What's New.md                           # 更新日志
 ├── references/
 │   ├── scoring-rubric-app.md               # 应用文评分细则
 │   └── scoring-rubric-continuation.md      # 读后续写评分细则
