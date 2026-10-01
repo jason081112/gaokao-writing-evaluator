@@ -22,9 +22,57 @@
     padding: 2rem 1rem;
   }
   .container { max-width: 720px; margin: 0 auto; }
+
+  .lang-toggle {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 100;
+    padding: 0.35rem 0.85rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    border: 1px solid var(--border);
+    background: rgba(22,27,34,0.85);
+    backdrop-filter: blur(8px);
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .lang-toggle:hover { border-color: var(--accent); color: var(--accent); }
+
   h1 { font-size: 1.8rem; margin-bottom: 0.3rem; }
-  .en { color: var(--muted); font-size: 1rem; margin-bottom: 1.5rem; }
-  .intro { color: var(--muted); margin-bottom: 2rem; }
+  .en-name { color: var(--muted); font-size: 1rem; margin-bottom: 1.5rem; }
+  .intro { color: var(--muted); margin-bottom: 2.5rem; }
+
+  .highlights {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 2.5rem;
+  }
+  .highlights li {
+    font-size: 0.9rem;
+    color: var(--muted);
+    padding-left: 1rem;
+    position: relative;
+    margin-bottom: 0.6rem;
+    line-height: 1.6;
+  }
+  .highlights li::before {
+    content: "·";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: bold;
+  }
+  .highlights li strong { color: var(--text); font-weight: 500; }
+
+  .section-title {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    color: var(--text);
+  }
+
   .card {
     background: var(--card);
     border: 1px solid var(--border);
@@ -52,63 +100,383 @@
   .btn:hover { border-color: var(--accent); color: var(--accent); }
   .btn.primary { background: var(--accent); color: #0d1117; border-color: var(--accent); }
   .btn.primary:hover { opacity: 0.85; }
-  footer { text-align: center; color: var(--muted); font-size: 0.85rem; margin-top: 3rem; }
+
+  details {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem 1.2rem;
+    margin-top: 2rem;
+  }
+  details[open] { padding-bottom: 1.5rem; }
+  summary {
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    list-style: none;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::after {
+    content: "▾";
+    color: var(--muted);
+    transition: transform 0.2s;
+  }
+  details[open] summary::after { transform: rotate(180deg); }
+
+  .doc { margin-top: 1.5rem; }
+  .doc h3 {
+    font-size: 1rem;
+    margin-top: 1.5rem;
+    margin-bottom: 0.6rem;
+    color: var(--accent);
+  }
+  .doc h3:first-child { margin-top: 0; }
+  .doc ul { list-style: none; padding-left: 0; }
+  .doc li {
+    font-size: 0.88rem;
+    color: var(--muted);
+    padding-left: 1rem;
+    position: relative;
+    margin-bottom: 0.4rem;
+  }
+  .doc li::before {
+    content: "·";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+  }
+  .doc p { font-size: 0.88rem; color: var(--muted); margin-bottom: 0.6rem; }
+  .doc table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    margin-bottom: 1rem;
+  }
+  .doc th, .doc td {
+    border: 1px solid var(--border);
+    padding: 0.4rem 0.6rem;
+    text-align: left;
+    color: var(--muted);
+  }
+  .doc th { color: var(--text); background: rgba(255,255,255,0.03); }
+  .doc pre {
+    background: #010409;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.8rem;
+    font-size: 0.8rem;
+    color: var(--muted);
+    overflow-x: auto;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+  }
+
+  footer {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin-top: 3rem;
+  }
 </style>
 </head>
 <body>
+
+<button class="lang-toggle" id="lang-toggle" onclick="toggleLang()">EN</button>
+
 <div class="container">
 
-  <h1>Xinyu的高考作文诊断器</h1>
-  <p class="en">Composition Diagnoser by Xinyu</p>
-  <p class="intro">自动识别应用文 / 读后续写，按新高考标准三档评分，输出逐项点评、情节链分析、高分范文和改写对照表。</p>
+  <h1 data-i18n="title"></h1>
+  <p class="en-name" data-i18n="subtitle"></p>
+  <p class="intro" data-i18n="intro"></p>
 
-  <!-- ===== 平台卡片开始：加新平台时，复制下面一整段，改平台名和链接 ===== -->
+  <ul class="highlights">
+    <li data-i18n-html="hl1"></li>
+    <li data-i18n-html="hl2"></li>
+    <li data-i18n-html="hl3"></li>
+    <li data-i18n-html="hl4"></li>
+  </ul>
+
+  <h2 class="section-title" data-i18n="getStarted"></h2>
+
   <div class="card">
     <h3>DeepSeek</h3>
-    <p>点开链接即可看到完整提示词，可直接开始对话。</p>
+    <p data-i18n="cardDesc"></p>
     <div class="btns">
-      <a class="btn primary" href="https://chat.deepseek.com/share/4692ymcl3xhap0flpk" target="_blank" rel="noopener">打开链接</a>
-      <button class="btn" onclick="copyPrompt(this)">复制提示词</button>
+      <a class="btn primary" href="https://chat.deepseek.com/share/4692ymcl3xhap0flpk" target="_blank" rel="noopener" data-i18n="openLink"></a>
+      <button class="btn" data-i18n="copyPrompt" onclick="copyPrompt(this)"></button>
     </div>
   </div>
 
   <div class="card">
-    <h3>通义千问</h3>
-    <p>点开链接即可看到完整提示词，可直接开始对话。</p>
+    <h3>通义千问 / Qwen</h3>
+    <p data-i18n="cardDesc"></p>
     <div class="btns">
-      <a class="btn primary" href="https://qianwen.my.cn/share/chat/f7cb101d9eaa40d59a4b6b1de961fbf0?biz_id=ai_qwen&env=prod&qwcontainer=qk" target="_blank" rel="noopener">打开链接</a>
-      <button class="btn" onclick="copyPrompt(this)">复制提示词</button>
+      <a class="btn primary" href="https://qianwen.my.cn/share/chat/f7cb101d9eaa40d59a4b6b1de961fbf0?biz_id=ai_qwen&env=prod&qwcontainer=qk" target="_blank" rel="noopener" data-i18n="openLink"></a>
+      <button class="btn" data-i18n="copyPrompt" onclick="copyPrompt(this)"></button>
     </div>
   </div>
-  <!-- ===== 平台卡片结束 ===== -->
 
   <div class="card">
-    <h3>通用提示词文件</h3>
-    <p>下载或复制 PROMPT.md，粘贴到任何支持长文本的 AI 对话窗口。</p>
+    <h3 data-i18n="universalTitle"></h3>
+    <p data-i18n="universalDesc"></p>
     <div class="btns">
-      <a class="btn primary" href="PROMPT.md" download>下载 PROMPT.md</a>
-      <button class="btn" onclick="copyPrompt(this)">复制提示词</button>
+      <a class="btn primary" href="PROMPT.md" download data-i18n="downloadPrompt"></a>
+      <button class="btn" data-i18n="copyPrompt" onclick="copyPrompt(this)"></button>
     </div>
   </div>
 
-  <footer>
-    <p>MIT License · 作者 Xinyu</p>
-  </footer>
+  <details>
+    <summary data-i18n="details"></summary>
+    <div class="doc">
+
+      <h3 data-i18n="useCases"></h3>
+      <ul>
+        <li data-i18n="uc1"></li>
+        <li data-i18n="uc2"></li>
+        <li data-i18n="uc3"></li>
+        <li data-i18n="uc4"></li>
+      </ul>
+
+      <h3 data-i18n="capabilities"></h3>
+      <ul>
+        <li data-i18n="cap1"></li>
+        <li data-i18n="cap2"></li>
+        <li data-i18n="cap3"></li>
+        <li data-i18n="cap4"></li>
+        <li data-i18n="cap5"></li>
+        <li data-i18n="cap6"></li>
+        <li data-i18n="cap7"></li>
+        <li data-i18n="cap8"></li>
+        <li data-i18n="cap9"></li>
+        <li data-i18n="cap10"></li>
+      </ul>
+
+      <h3 data-i18n="outputModules"></h3>
+      <table>
+        <tr>
+          <th data-i18n="tblCat"></th>
+          <th data-i18n="tblMod"></th>
+        </tr>
+        <tr>
+          <td data-i18n="tblScoreCat"></td>
+          <td data-i18n="tblScoreMod"></td>
+        </tr>
+        <tr>
+          <td data-i18n="tblReviewCat"></td>
+          <td data-i18n="tblReviewMod"></td>
+        </tr>
+        <tr>
+          <td data-i18n="tblGenCat"></td>
+          <td data-i18n="tblGenMod"></td>
+        </tr>
+        <tr>
+          <td data-i18n="tblSumCat"></td>
+          <td data-i18n="tblSumMod"></td>
+        </tr>
+        <tr>
+          <td data-i18n="tblCtrlCat"></td>
+          <td data-i18n="tblCtrlMod"></td>
+        </tr>
+      </table>
+
+      <h3 data-i18n="scoringStd"></h3>
+      <p data-i18n="scoringStdDesc"></p>
+
+      <h3 data-i18n="dirStruct"></h3>
+      <pre>gaokao-writing-evaluator/
+├── SKILL.md                                # 技能主文件
+├── PROMPT.md                               # 纯文本版提示词
+├── index.html                              # 本页面
+├── stats.js                                # Umami 统计
+├── references/
+│   ├── scoring-rubric-app.md
+│   └── scoring-rubric-continuation.md
+├── assets/
+│   └── checklist-template.md
+└── LICENSE</pre>
+
+      <h3 data-i18n="contributing"></h3>
+      <p data-i18n="contributingDesc"></p>
+
+      <h3 data-i18n="version"></h3>
+      <ul>
+        <li>v12.0 · 2026.9.20</li>
+        <li data-i18n="author"></li>
+        <li data-i18n="license"></li>
+      </ul>
+
+    </div>
+  </details>
+
+  <footer data-i18n="footer"></footer>
 
 </div>
 
 <script>
+const i18n = {
+  zh: {
+    title: 'Xinyu的高考作文诊断器',
+    subtitle: 'Composition Diagnoser by Xinyu',
+    intro: '自动识别应用文 / 读后续写，按新高考标准三档评分，输出逐项点评、情节链分析、高分范文和改写对照表。',
+    hl1: '<strong>双轨评分引擎</strong>：内容与语言权重可调，严格 / 标准 / 宽松三档输出，附分数漂移校准机制，确保跨模型评分一致性',
+    hl2: '<strong>语义句链分析</strong>（灵感来自高中英语老师 Liu X.）：将续写内容拆解为 A1–A5、B1–B5 逻辑节点，逐节点评估与原文融洽度、情节合理性、语言准确性',
+    hl3: '<strong>防稀疏架构</strong>：核心规则首尾锚定，长材料渐进式披露，多轮上下文具备复述锚点，降低长提示词注意力稀疏风险',
+    hl4: '<strong>可迁移范文生成</strong>：保留学生原有合理构思，加粗标注 3–5 处可迁移表达，语言自然、不堆砌生僻词',
+    getStarted: '开始使用',
+    cardDesc: '点开链接即可看到完整提示词，可直接开始对话。',
+    openLink: '打开链接',
+    copyPrompt: '复制提示词',
+    universalTitle: '通用提示词文件',
+    universalDesc: '下载或复制 PROMPT.md，粘贴到任何支持长文本的 AI 对话窗口。',
+    downloadPrompt: '下载 PROMPT.md',
+    details: '项目详情',
+    useCases: '适用场景',
+    uc1: '高中生自测高考英语作文，了解当前分数区间与提分方向',
+    uc2: '教师批改作文时作为辅助评分与点评工具',
+    uc3: '英语学习者对比学生原句与范文改写，积累可迁移表达',
+    uc4: '开发者研究 Agent Skill 结构，作为 Complex Skill 的参考实现',
+    capabilities: '当前能力',
+    cap1: '自动识别作文类型：应用文 / 读后续写 / 两者均有',
+    cap2: '三档评分：严格、标准、宽松分数 + 推荐分',
+    cap3: '逐项点评：应用文对照要点，读后续写逐节点分析',
+    cap4: '情节链断裂标注：人物矛盾、转折无铺垫、伏笔无呼应',
+    cap5: '语言错误分层：轻微 / 中度 / 严重 + 模板化表达标注',
+    cap6: '对话 / 情感 / 伏笔专项检查',
+    cap7: '前三大问题 + 最小修改提档方案',
+    cap8: '高分范文：保留原构思，加粗可迁移表达',
+    cap9: '改写对照表：原句 → 问题类型 → 影响程度 → 范文改写',
+    cap10: '总分汇总表：多篇作文汇总在同一张表内',
+    outputModules: '输出模块',
+    tblCat: '分类',
+    tblMod: '模块',
+    tblScoreCat: '评分',
+    tblScoreMod: '三档评分 + 推荐分、漂移校准、跑题兜底',
+    tblReviewCat: '点评',
+    tblReviewMod: '逐项/逐节点点评、情节链断裂、对话/情感/伏笔、语言错误影响程度、模板化表达',
+    tblGenCat: '生成',
+    tblGenMod: '前三大问题、最小修改提档、高分范文、改写对照表',
+    tblSumCat: '汇总',
+    tblSumMod: '总分汇总表、多篇横向对比',
+    tblCtrlCat: '输出控制',
+    tblCtrlMod: '精简模式、标准模式、详细模式',
+    scoringStd: '评分标准',
+    scoringStdDesc: '应用文满分 15 分，读后续写满分 25 分，均按五档给分。词数不足或超标、书写差影响交际，按新高考细则扣分或降档。',
+    dirStruct: '目录结构',
+    contributing: '贡献',
+    contributingDesc: '欢迎提交 Issue 或 Pull Request。如果你有高考英语写作相关的教学经验或评分建议，非常欢迎一起完善评分逻辑。',
+    version: '版本',
+    author: '作者：Xinyu',
+    license: '许可证：MIT',
+    footer: 'MIT License · Xinyu',
+    copied: '已复制 ✓',
+    copyFail: '复制失败，请手动下载 PROMPT.md'
+  },
+  en: {
+    title: 'Composition Diagnoser by Xinyu',
+    subtitle: 'Xinyu的高考作文诊断器',
+    intro: 'Auto-detects practical writing / continuation writing, scores on three tiers by China\'s Gaokao standard, and outputs item-by-item reviews, plot-chain analysis, model essays, and rewrite comparisons.',
+    hl1: '<strong>Dual-track scoring engine</strong>: adjustable content/language weights, three-tier output (strict / standard / lenient), with drift calibration for cross-model consistency',
+    hl2: '<strong>Sentence-chain analysis</strong> (inspired by high school English teacher Liu X.): breaks continuation writing into A1–A5, B1–B5 logical nodes, evaluating coherence, plausibility, and language accuracy node by node',
+    hl3: '<strong>Anti-sparsity architecture</strong>: core rules anchored at head and tail, long materials progressively disclosed, with recall anchors across multi-turn context',
+    hl4: '<strong>Transferable model essays</strong>: preserves the student\'s original ideas, bolding 3–5 transferable expressions, natural and free of obscure vocabulary',
+    getStarted: 'Get Started',
+    cardDesc: 'Open the link to view the full prompt and start a conversation directly.',
+    openLink: 'Open Link',
+    copyPrompt: 'Copy Prompt',
+    universalTitle: 'Universal Prompt File',
+    universalDesc: 'Download or copy PROMPT.md, then paste it into any AI chat window that supports long text.',
+    downloadPrompt: 'Download PROMPT.md',
+    details: 'Project Details',
+    useCases: 'Use Cases',
+    uc1: 'High school students self-testing to understand score range and improvement direction',
+    uc2: 'Teachers using it as an aid for grading and feedback',
+    uc3: 'Learners comparing original sentences with model rewrites to build transferable expressions',
+    uc4: 'Developers studying Agent Skill structure as a reference for complex skills',
+    capabilities: 'Capabilities',
+    cap1: 'Auto-detects essay type: practical / continuation / both',
+    cap2: 'Three-tier scoring: strict / standard / lenient + recommended',
+    cap3: 'Item-by-item review: point coverage for practical, node-by-node for continuation',
+    cap4: 'Plot-chain break detection: character contradictions, unprepared twists, unfired foreshadowing',
+    cap5: 'Language error severity: minor / moderate / severe + cliché tagging',
+    cap6: 'Dialogue / emotion / foreshadowing checks',
+    cap7: 'Top-3 issues + minimal revision plan',
+    cap8: 'Model essay: preserves original ideas, bolds transferable expressions',
+    cap9: 'Rewrite table: original → issue type → severity → model rewrite',
+    cap10: 'Score summary: multiple essays in one table',
+    outputModules: 'Output Modules',
+    tblCat: 'Category',
+    tblMod: 'Modules',
+    tblScoreCat: 'Scoring',
+    tblScoreMod: 'Three-tier score + recommended, drift calibration, off-topic fallback',
+    tblReviewCat: 'Review',
+    tblReviewMod: 'Item/node review, plot-chain break, dialogue/emotion/foreshadowing, error severity, cliché tagging',
+    tblGenCat: 'Generation',
+    tblGenMod: 'Top-3 issues, minimal revision plan, model essay, rewrite table',
+    tblSumCat: 'Summary',
+    tblSumMod: 'Score summary, multi-essay comparison',
+    tblCtrlCat: 'Output Control',
+    tblCtrlMod: 'Compact / Standard / Detailed mode',
+    scoringStd: 'Scoring Standard',
+    scoringStdDesc: 'Practical writing is worth 15 points, continuation writing 25, both scored in five tiers. Insufficient/excessive word count or poor handwriting affecting communication is penalized or downgraded per Gaokao rules.',
+    dirStruct: 'Directory Structure',
+    contributing: 'Contributing',
+    contributingDesc: 'Issues and pull requests are welcome. If you have teaching experience or scoring suggestions for Gaokao English writing, we\'d love to refine the scoring logic together.',
+    version: 'Version',
+    author: 'Author: Xinyu',
+    license: 'License: MIT',
+    footer: 'MIT License · Xinyu',
+    copied: 'Copied ✓',
+    copyFail: 'Copy failed. Please download PROMPT.md manually.'
+  }
+};
+
+let currentLang = 'zh';
+
+function t(key) {
+  return (i18n[currentLang] && i18n[currentLang][key]) || key;
+}
+
+function setLang(lang) {
+  currentLang = lang;
+  document.documentElement.lang = lang === 'zh' ? 'zh-CN' : 'en';
+  localStorage.setItem('lang', lang);
+  document.getElementById('lang-toggle').textContent = lang === 'zh' ? 'EN' : '中';
+  document.title = t('title');
+
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    el.textContent = t(el.dataset.i18n);
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el => {
+    el.innerHTML = t(el.dataset.i18nHtml);
+  });
+}
+
+function toggleLang() {
+  setLang(currentLang === 'zh' ? 'en' : 'zh');
+}
+
+(function initLang() {
+  const urlLang = new URLSearchParams(location.search).get('lang');
+  const saved = localStorage.getItem('lang');
+  const browser = navigator.language.startsWith('zh') ? 'zh' : 'en';
+  setLang(urlLang || saved || browser);
+})();
+
 async function copyPrompt(btn) {
   try {
     const res = await fetch('PROMPT.md');
     if (!res.ok) throw new Error('fetch failed');
     const text = await res.text();
     await navigator.clipboard.writeText(text);
-    const old = btn.textContent;
-    btn.textContent = '已复制 ✓';
-    setTimeout(() => btn.textContent = old, 1500);
+    btn.textContent = t('copied');
+    setTimeout(() => {
+      btn.textContent = t('copyPrompt');
+    }, 1500);
   } catch (e) {
-    alert('复制失败，请手动下载 PROMPT.md');
+    alert(t('copyFail'));
   }
 }
 </script>
