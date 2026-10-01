@@ -5,6 +5,17 @@
 
 ## Unreleased
 
+## v12.1 — 2026-10-01
+### Added
+- 新增 `PROMPT.md`：纯对话版提示词，去掉 Agent Skill 专属元数据，可直接粘贴到任意 AI 对话窗口使用
+- README 顶部新增导航栏，快速跳转各章节与更新日志
+- README 目录结构补充 `PROMPT.md` 与 `What's New.md`
+
+### Changed
+- README「方式二」引用由 `SKILL.md` 改为 [`PROMPT.md`](./PROMPT.md)，并补充适用说明
+- `What's New.md` 重排为 Keep a Changelog 结构（Added / Changed / Fixed / Breaking Changes）
+- README 底部版本号更新至 v12.1
+
 ## v12.0 — 2026-09-21
 ### ⚠️ Breaking Changes
 - 项目正式更名为「Xinyu的高考作文诊断器 / Composition Diagnoser by Xinyu」
