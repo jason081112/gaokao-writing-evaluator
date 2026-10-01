@@ -51,11 +51,11 @@ git clone https://github.com/jason081112/gaokao-writing-evaluator.git
 
 ### 方式二：直接复制提示词
 
-考虑到生成式 AI 和 Agent Skill 在高中学生群体中尚未普及，你可以直接使用根目录下的 `SKILL.md` 文件。它包含了完整的评卷指令，无需任何配置。
+考虑到 Agent Skill（智能体技能包）这类进阶玩法门槛较高、上手的高中生还不多，你可以直接使用根目录下的 [PROMPT.md](./PROMPT.md) 文件。它包含了完整的评卷指令，无需任何配置。
 
-**使用方法：**
+使用方法：
 
-1. 打开 `SKILL.md`，全选复制。
+1. 打开 PROMPT.md，全选复制。
 2. 粘贴到任何支持长文本的 AI 对话窗口，例如 DeepSeek、ChatGPT、Kimi、豆包、通义千问等。
 3. 在同一个对话中，直接提交你的作文材料即可。
 
@@ -69,7 +69,7 @@ git clone https://github.com/jason081112/gaokao-writing-evaluator.git
 
 Agent 第一动作会输出复选栏，你回复编号或"全选"后，开始生成评卷报告。
 
-> 注：此方式依赖客户端的上下文长度，建议使用支持较长上下文的模型。
+注：此方式依赖客户端的上下文长度，建议使用支持较长上下文的模型。
 
 ## 输出模块
 
