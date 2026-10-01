@@ -62,7 +62,6 @@
   <p class="en">Composition Diagnoser by Xinyu</p>
   <p class="intro">自动识别应用文 / 读后续写，按新高考标准三档评分，输出逐项点评、情节链分析、高分范文和改写对照表。</p>
 
-  <!-- ===== 平台卡片开始：加新平台时，复制下面一整段，改平台名和链接 ===== -->
   <div class="card">
     <h3>DeepSeek</h3>
     <p>点开链接即可看到完整提示词，可直接开始对话。</p>
@@ -80,13 +79,12 @@
       <button class="btn" onclick="copyPrompt(this)">复制提示词</button>
     </div>
   </div>
-  <!-- ===== 平台卡片结束 ===== -->
 
   <div class="card">
     <h3>通用提示词文件</h3>
-    <p>下载或复制 prompt.txt，粘贴到任何支持长文本的 AI 对话窗口。</p>
+    <p>下载或复制 PROMPT.md，粘贴到任何支持长文本的 AI 对话窗口。</p>
     <div class="btns">
-      <a class="btn primary" href="prompt.txt" download>下载 prompt.txt</a>
+      <a class="btn primary" href="PROMPT.md" download>下载 PROMPT.md</a>
       <button class="btn" onclick="copyPrompt(this)">复制提示词</button>
     </div>
   </div>
@@ -100,7 +98,7 @@
 <script>
 async function copyPrompt(btn) {
   try {
-    const res = await fetch('prompt.txt');
+    const res = await fetch('PROMPT.md');
     if (!res.ok) throw new Error('fetch failed');
     const text = await res.text();
     await navigator.clipboard.writeText(text);
@@ -108,7 +106,7 @@ async function copyPrompt(btn) {
     btn.textContent = '已复制 ✓';
     setTimeout(() => btn.textContent = old, 1500);
   } catch (e) {
-    alert('复制失败，请手动下载 prompt.txt');
+    alert('复制失败，请手动下载 PROMPT.md');
   }
 }
 </script>
