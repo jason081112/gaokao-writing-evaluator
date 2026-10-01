@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Xinyu的高考作文诊断器</title>
+<style>
+  :root {
+    --bg: #0d1117;
+    --card: #161b22;
+    --border: #30363d;
+    --text: #e6edf3;
+    --muted: #8b949e;
+    --accent: #58a6ff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    padding: 2rem 1rem;
+  }
+  .container { max-width: 720px; margin: 0 auto; }
+  h1 { font-size: 1.8rem; margin-bottom: 0.3rem; }
+  .en { color: var(--muted); font-size: 1rem; margin-bottom: 1.5rem; }
+  .intro { color: var(--muted); margin-bottom: 2rem; }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.2rem;
+    margin-bottom: 1rem;
+    transition: border-color 0.2s;
+  }
+  .card:hover { border-color: var(--accent); }
+  .card h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+  .card p { color: var(--muted); font-size: 0.9rem; margin-bottom: 1rem; }
+  .btns { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+  .btn {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    text-decoration: none;
+    cursor: pointer;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--text);
+    transition: all 0.2s;
+  }
+  .btn:hover { border-color: var(--accent); color: var(--accent); }
+  .btn.primary { background: var(--accent); color: #0d1117; border-color: var(--accent); }
+  .btn.primary:hover { opacity: 0.85; }
+  footer { text-align: center; color: var(--muted); font-size: 0.85rem; margin-top: 3rem; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <h1>Xinyu的高考作文诊断器</h1>
+  <p class="en">Composition Diagnoser by Xinyu</p>
+  <p class="intro">自动识别应用文 / 读后续写，按新高考标准三档评分，输出逐项点评、情节链分析、高分范文和改写对照表。</p>
+
+  <!-- ===== 平台卡片开始：加新平台时，复制下面一整段，改平台名和链接 ===== -->
+  <div class="card">
+    <h3>DeepSeek</h3>
+    <p>点开链接即可看到完整提示词，可直接开始对话。</p>
+    <div class="btns">
+      <a class="btn primary" href="https://chat.deepseek.com/share/4692ymcl3xhap0flpk" target="_blank" rel="noopener">打开链接</a>
+      <button class="btn" onclick="copyPrompt(this)">复制提示词</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>通义千问</h3>
+    <p>点开链接即可看到完整提示词，可直接开始对话。</p>
+    <div class="btns">
+      <a class="btn primary" href="https://qianwen.my.cn/share/chat/f7cb101d9eaa40d59a4b6b1de961fbf0?biz_id=ai_qwen&env=prod&qwcontainer=qk" target="_blank" rel="noopener">打开链接</a>
+      <button class="btn" onclick="copyPrompt(this)">复制提示词</button>
+    </div>
+  </div>
+  <!-- ===== 平台卡片结束 ===== -->
+
+  <div class="card">
+    <h3>通用提示词文件</h3>
+    <p>下载或复制 prompt.txt，粘贴到任何支持长文本的 AI 对话窗口。</p>
+    <div class="btns">
+      <a class="btn primary" href="prompt.txt" download>下载 prompt.txt</a>
+      <button class="btn" onclick="copyPrompt(this)">复制提示词</button>
+    </div>
+  </div>
+
+  <footer>
+    <p>MIT License · 作者 Xinyu</p>
+  </footer>
+
+</div>
+
+<script>
+async function copyPrompt(btn) {
+  try {
+    const res = await fetch('prompt.txt');
+    if (!res.ok) throw new Error('fetch failed');
+    const text = await res.text();
+    await navigator.clipboard.writeText(text);
+    const old = btn.textContent;
+    btn.textContent = '已复制 ✓';
+    setTimeout(() => btn.textContent = old, 1500);
+  } catch (e) {
+    alert('复制失败，请手动下载 prompt.txt');
+  }
+}
+</script>
+
+<script defer src="https://cloud.umami.is/script.js" data-website-id="dc53ce1d-302d-435c-a15a-4d81aa2d2cb2"></script>
+</body>
+</html>
