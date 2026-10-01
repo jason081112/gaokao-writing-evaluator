@@ -7,8 +7,8 @@ metadata:
   display_name: Xinyu的高考作文诊断器
   english_name: Composition Diagnoser by Xinyu
   author: Xinyu
-  version: "12.0"
-  updated: "2026-09-20"
+  version: "12.1"
+  updated: "2026-10-01"
 ---
 
 # 高考英语写作评卷与范文生成 Agent
@@ -475,9 +475,9 @@ H15. 未指定尺度时，默认标准尺度，不同模型不得自行偏移至
 
 # 版本与作者信息（提示词元数据，不输出）
 
+## 版本
+- 当前版本：v12.1
+- 更新日期：2026.10.1
 - 作者：Xinyu
 - 显示名：Xinyu的高考作文诊断器
 - 英文名：Composition Diagnoser by Xinyu
-- 版本号：v12.0
-- 更新日期：2026.9.20
-- 说明：高考英语写作评卷与范文生成 Agent 提示词
