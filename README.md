@@ -3,7 +3,7 @@
 
 你好，我是 Xinyu。欢迎来到我的项目。这是我人生中第一个真正意义上的开源项目。
 
-> 🚀 **快速启动**：[点击进入](https://jason081112.github.io/gaokao-writing-evaluator/)\
+> [🚀 **网页版快速启动**](https://jason081112.github.io/gaokao-writing-evaluator/)\
 [✨快速开始](#快速开始)\
 [📖更新日志](./What's%20New.md)\
 [项目亮点](#项目亮点) · [适用场景](#适用场景) · [输出模块](#输出模块) · [评分标准](#评分标准) · [贡献](#贡献)
